@@ -1,147 +1,130 @@
-.container {
-	width:70vw;
-	height: 70vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-    border: 3px solid green;
-    margin:9% 15%;
-}
-h1{
- font-size: 6em;
- color: green;
- margin:0;
+/*--------------------------------------------------------------
+# Font & Color Variables
+# Help: https://bootstrapmade.com/color-system/
+--------------------------------------------------------------*/
+/* Fonts */
+:root {
+  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Abel",  sans-serif;
+  --nav-font: "Mukta",  sans-serif;
 }
 
-a:link, a:visited {
-  background-color: white;
-  color: black;
-  border: 2px solid green;
-  padding: 10px 20px;
-  text-align: center;
+/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+:root { 
+  --background-color: #070d1a; /* Background color for the entire website, including individual sections */
+  --default-color: #e4edf5; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #f2f8fe; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #10a3d7; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #131825; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+:root {
+  --nav-color: #e4edf5;  /* The default color of the main navmenu links */
+  --nav-hover-color: #10a3d7; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: rgba(22, 29, 44, 0.95); /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: rgba(23, 30, 47, 0.95); /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: rgba(215, 226, 235, 0.645); /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #ffffff; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+
+.light-background {
+  --background-color: #111623;
+  --surface-color: #161c2a;
+}
+
+.dark-background {
+  --background-color: #060606;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #252525;
+  --contrast-color: #ffffff;
+}
+
+/* Smooth scroll */
+:root {
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------------------
+# General Styling & Shared Classes
+--------------------------------------------------------------*/
+body {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  font-family: var(--default-font);
+}
+
+a {
+  color: var(--accent-color);
   text-decoration: none;
-  display: block;
-  margin-bottom: 10px;
-  font-size: 35px;
+  transition: 0.3s;
 }
 
-a:hover, a:active {
-  background-color: green;
-  color: white;
+a:hover {
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
 }
 
-.ques_container{
-	width:70vw;
-	height: 70vh;
-	justify-content: left;
-	align-items: left;
-	text-align: left;
-    border: 3px solid green;
-    margin:9% 15%;
-
-
-}
-.allques{
-	 margin: 2px 10px;
-}
-.info{
-	display: flex;
-	width: 100%;
-}
-.textques{
-float:left;
-width: 50%;
-font-size: 20px;
-padding: 20px;
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
 }
 
-.textques p{
-	margin: 0;
-	padding-bottom: 5px;
-	padding-left: 40px;
-	font-weight: bold;
+/*--------------------------------------------------------------
+# Global Section Titles
+--------------------------------------------------------------*/
+.section-title {
+  text-align: center;
+  padding: 30px 0;
+  margin-bottom: 30px;
+  position: relative;
 }
 
-#progressBar{
-	width: 10rem;
-	height: 1rem;
-	border: 0.2rem solid green;
-	border-radius: 50px;
-	overflow:hidden;
-}
-#progressBarFull{
-	height: 100%;
-	background-color: green;
-	/*width:0%;*/
-}
-.textscore{
-	width: 50%;
-float:right;
-font-size: 20px;
-padding: 20px;
-font-weight: bold;
-
-
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  position: relative;
+  z-index: 2;
 }
 
-.textscore p{
-float:left;
-margin:0;
-padding-left: 220px;
-padding-top: 5px;
-
-}
-.textscore h2{
-display: flex;
-float: right;
-margin:0;
-}
-
-
-
-.questions{
-	display: block;
-	float: left;
-	width: 100%;
+.section-title span {
+  position: absolute;
+  top: 4px;
+  color: color-mix(in srgb, var(--heading-color), transparent 95%);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 52px;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
- .questions h3{
-	font-size: 1.7rem;
-	margin:0;
+.section-title p {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
 }
 
-.choices p {
-/*  background-color: white;
-*/  color: black;
-  border: 2px solid green;
-  padding: 5px 20px;
-  text-align: left;
-  display: block;
-  border-radius: 50px;
-  font-weight: bold;
- 
-}
+@media (max-width: 575px) {
+  .section-title h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
 
-.choices p:hover, .choices p:active {
-  /*background-color: #BEC903;*/
-  color: #BEC903;
-}
-
-.scoreAchievers {
-	font-size :1.5rem;
-	list-style-type: none;
-}
-
-.correct{
-	background-color: green;
-	  border-radius: 50px;
-
-
-}
-
-.incorrect{
-	background-color: red;
-	border-radius: 50px;
+  .section-title span {
+    font-size: 38px;
+  }
 }
