@@ -88,6 +88,16 @@ let questions = [
     choice5: 'Helium',
     choice6: 'Argon',
     answer: 4,
+},
+{
+    question: 'Which is the largest continent by land area?',
+    choice1: 'Africa',
+    choice2: 'Europe',
+    choice3: 'North America',
+    choice4: 'South America',
+    choice5: 'Asia',
+    choice6: 'Australia',
+    answer: 5,
 }
 ]
 let currentQuestion = {}
@@ -104,7 +114,7 @@ const MAX_QUESTIONS = questions.length
 
 let SCORE_POINTS = (100/MAX_QUESTIONS)
 
-GetStareted = () => {
+StartGame = () => {
 	questionCounter = 0
     score = 0
     availableQuestions = [...questions]
@@ -177,7 +187,8 @@ incrementScore = number  => {
 	score +=number
  scoreText.innerText = score
 }
-GetStareted()
+
+StartGame()
 
 
 
