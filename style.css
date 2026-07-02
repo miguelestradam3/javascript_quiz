@@ -128,3 +128,46 @@ h6 {
     font-size: 38px;
   }
 }
+
+/*--------------------------------------------------------------
+# Question styles
+--------------------------------------------------------------*/
+
+.question-hover{
+    background:#4CAF50;
+    color:white;
+    transform:scale(1.05);
+    cursor:pointer;
+}
+
+.ChoiceText{
+    width:300px;
+    padding:20px;
+    margin:15px auto;
+
+    background:#f4f4f4;
+    border:2px solid #ccc;
+
+    transition:.3s;
+}
+
+#tooltip{
+    position:absolute;
+
+    display:none;
+
+    padding:8px 12px;
+
+    background:#222;
+    color:white;
+
+    border-radius:5px;
+
+    font-size:14px;
+
+    pointer-events:none;
+
+    white-space:nowrap;
+
+    z-index:1000;
+}
