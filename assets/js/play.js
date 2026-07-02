@@ -170,10 +170,25 @@ choices.forEach(choice => {
 		const selectedAnswer = selectedChoice.dataset['number']
 		let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
         if(classToApply === 'correct') {
+            // Score in real time
 			incrementScore(SCORE_POINTS)
-			alert("Your answer is right")
+            // Sweet Alert used
+            Swal.fire({
+                icon: "success",
+                title: "Correct!",
+                text: "Excellent!",
+                timer: 1200,
+                showConfirmButton: false
+            });
         } else {
-			alert(`The answer was: ${Object.values(currentQuestion)[currentQuestion.answer]}`)
+            //  Sweet Alert used
+            Swal.fire({
+                icon: "error",
+                title: "Incorrect!",
+                text: `Correct answer: ${Object.values(currentQuestion)[currentQuestion.answer]}`,
+                timer: 1800,
+                showConfirmButton: false
+            });
 		}
 		selectedChoice.parentElement.classList.add(classToApply)
 		setTimeout(() => {
