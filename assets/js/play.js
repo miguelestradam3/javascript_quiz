@@ -1,45 +1,45 @@
 let questions = [
-{
-	question: 'What is the worl\'ds most populated country?',
-	choice1: 'usa',
-	choice2: 'china',
-	choice3: 'russia',
-	choice4: 'india',
-	choice5: 'Egypt',
-	choice6: 'Germany',
-	answer: 2,
-},
-{
-	question: 'What is the capital of the Philippines?',
-	choice1: 'Jakarta',
-	choice2: 'Dili',
-	choice3: 'Manilla',
-	choice4: 'Marawi',
-	choice5: 'Berlin',
-	choice6: 'Cairo',
-	answer: 3,
-},
-{
-	question: 'The Great Barrier Reef is off the coast of which country?',
-	choice1: 'Australia',
-	choice2: 'Fiji',
-	choice3: 'South Africa',
-	choice4: 'New Zealand',
-	choice5: 'Egypt',
-	choice6: 'Germany',
-	answer: 1,
-},
-{
-	question: 'What is the world\'s Smallest Country?',
-	choice1: 'usa',
-	choice2: 'china',
-	choice3: 'russia',
-	choice4: 'Monaco',
-	choice5: 'Vatican City',
-	choice6: 'Lichtenstein',
-	answer: 5,
-},
-{
+  {
+    question: "What is the world's most populated country?",
+    choice1: 'USA',
+    choice2: 'China',
+    choice3: 'Russia',
+    choice4: 'India',
+    choice5: 'Egypt',
+    choice6: 'Germany',
+    answer: 2,
+  },
+  {
+    question: 'What is the capital of the Philippines?',
+    choice1: 'Jakarta',
+    choice2: 'Dili',
+    choice3: 'Manila',
+    choice4: 'Marawi',
+    choice5: 'Berlin',
+    choice6: 'Cairo',
+    answer: 3,
+  },
+  {
+    question: 'The Great Barrier Reef is off the coast of which country?',
+    choice1: 'Australia',
+    choice2: 'Fiji',
+    choice3: 'South Africa',
+    choice4: 'New Zealand',
+    choice5: 'Egypt',
+    choice6: 'Germany',
+    answer: 1,
+  },
+  {
+    question: "What is the world's smallest country?",
+    choice1: 'USA',
+    choice2: 'China',
+    choice3: 'Russia',
+    choice4: 'Monaco',
+    choice5: 'Vatican City',
+    choice6: 'Liechtenstein',
+    answer: 5,
+  },
+  {
     question: 'Which planet is known as the Red Planet?',
     choice1: 'Earth',
     choice2: 'Venus',
@@ -48,8 +48,8 @@ let questions = [
     choice5: 'Saturn',
     choice6: 'Mercury',
     answer: 3,
-},
-{
+  },
+  {
     question: 'Which ocean is the largest in the world?',
     choice1: 'Atlantic Ocean',
     choice2: 'Indian Ocean',
@@ -58,8 +58,8 @@ let questions = [
     choice5: 'Pacific Ocean',
     choice6: 'Mediterranean Sea',
     answer: 5,
-},
-{
+  },
+  {
     question: 'Who painted the Mona Lisa?',
     choice1: 'Vincent van Gogh',
     choice2: 'Pablo Picasso',
@@ -68,8 +68,8 @@ let questions = [
     choice5: 'Claude Monet',
     choice6: 'Raphael',
     answer: 4,
-},
-{
+  },
+  {
     question: 'What is the largest mammal on Earth?',
     choice1: 'African Elephant',
     choice2: 'Blue Whale',
@@ -78,8 +78,8 @@ let questions = [
     choice5: 'Polar Bear',
     choice6: 'Orca',
     answer: 2,
-},
-{
+  },
+  {
     question: 'Which gas do plants absorb from the atmosphere?',
     choice1: 'Oxygen',
     choice2: 'Nitrogen',
@@ -88,8 +88,8 @@ let questions = [
     choice5: 'Helium',
     choice6: 'Argon',
     answer: 4,
-},
-{
+  },
+  {
     question: 'Which is the largest continent by land area?',
     choice1: 'Africa',
     choice2: 'Europe',
@@ -98,150 +98,136 @@ let questions = [
     choice5: 'Asia',
     choice6: 'Australia',
     answer: 5,
-}
-]
-let currentQuestion = {}
-let TrueAnswers = true 
-let score = 0
-let questionCounter = 0 
-let availableQuestions = [] 
+  }
+];
+
+let currentQuestion = {};
+let acceptingAnswers = true;
+let score = 0;
+let questionCounter = 0;
+let availableQuestions = [];
+
 const question = document.querySelector('#QuestionText');
-const choices = Array.from(document.querySelectorAll('.ChoiceText'));
+const choiceTextEls = Array.from(document.querySelectorAll('.ChoiceText'));
+const choiceCards = Array.from(document.querySelectorAll('.quiz-choice'));
 const progressText = document.querySelector('#progressText');
 const scoreText = document.querySelector('#scorenumber');
 const progressBarFull = document.querySelector('#progressBarFull');
-const MAX_QUESTIONS = questions.length
+const MAX_QUESTIONS = questions.length;
+const SCORE_POINTS = 100 / MAX_QUESTIONS;
 
-let SCORE_POINTS = (100/MAX_QUESTIONS)
-
-StartGame = () => {
-	questionCounter = 0
-    score = 0
-    availableQuestions = [...questions]
-    getNewQuestion()
+// ── Start ──────────────────────────────────────────────────────
+function startGame() {
+  questionCounter = 0;
+  score = 0;
+  availableQuestions = [...questions];
+  getNewQuestion();
 }
 
+// ── Next Question ──────────────────────────────────────────────
+function getNewQuestion() {
+  if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    localStorage.setItem('mostRecentScore', score);
+    return window.location.assign('score.html');
+  }
 
-getNewQuestion = () => {
-	 if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
-        localStorage.setItem('mostRecentScore', score)
+  questionCounter++;
+  progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`;
+  progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
 
-        return window.location.assign('score.html')
+  const idx = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[idx];
+  question.innerText = currentQuestion.question;
+
+  // Animate question card
+  const card = document.querySelector('.quiz-question-card');
+  card.style.animation = 'none';
+  card.offsetHeight; // force reflow
+  card.style.animation = 'fadeInUp 0.4s ease-out both';
+
+  // Populate choices with staggered animation
+  choiceTextEls.forEach((el, i) => {
+    const number = el.dataset['number'];
+    el.innerText = currentQuestion['choice' + number];
+
+    const parent = choiceCards[i];
+    parent.classList.remove('correct', 'incorrect');
+    parent.style.animation = 'none';
+    parent.offsetHeight;
+    parent.style.animation = `fadeInUp 0.35s ease-out ${0.05 * i}s both`;
+  });
+
+  availableQuestions.splice(idx, 1);
+  acceptingAnswers = true;
 }
-questionCounter++
-progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
-progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
-const questionsRandNumber = Math.floor(Math.random() * availableQuestions.length)
-currentQuestion = availableQuestions[questionsRandNumber]
-question.innerText = currentQuestion.question
-choices.forEach(choice => {
-    const number = choice.dataset['number']
-	 choice.innerText = currentQuestion['choice' + number]
-    })
-availableQuestions.splice(questionsRandNumber, 1)
 
-  TrueAnswers = true
-}
+// ── Click handler on each choice card ──────────────────────────
+choiceCards.forEach((card, i) => {
+  card.addEventListener('click', () => {
+    if (!acceptingAnswers) return;
+    acceptingAnswers = false;
 
-const tooltip = document.getElementById("tooltip");
+    const selectedNumber = card.dataset['number'];
+    const isCorrect = selectedNumber == currentQuestion.answer;
+    const classToApply = isCorrect ? 'correct' : 'incorrect';
 
-choices.forEach(function(question){
+    if (isCorrect) {
+      incrementScore(SCORE_POINTS);
+      Swal.fire({
+        icon: 'success',
+        title: 'Correct!',
+        text: 'Excellent!',
+        timer: 1200,
+        showConfirmButton: false,
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Incorrect!',
+        text: `Correct answer: ${currentQuestion['choice' + currentQuestion.answer]}`,
+        timer: 1800,
+        showConfirmButton: false,
+      });
+    }
 
-    question.addEventListener("mouseenter", function(){
-
-        tooltip.innerHTML = question.dataset.tooltip;
-        tooltip.style.display = "block";
-
-    });
-
-    question.addEventListener("mouseleave", function(){
-
-        tooltip.style.display = "none";
-
-    });
-
+    card.classList.add(classToApply);
+    setTimeout(() => {
+      card.classList.remove(classToApply);
+      getNewQuestion();
+    }, 1000);
+  });
 });
 
-choices.forEach(choice => {
-    choice.addEventListener('click', e => {
-		if(!TrueAnswers) return
-			TrueAnswers = false
-		const selectedChoice = e.target
-		const selectedAnswer = selectedChoice.dataset['number']
-		let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
-        if(classToApply === 'correct') {
-            // Score in real time
-			incrementScore(SCORE_POINTS)
-            // Sweet Alert used
-            Swal.fire({
-                icon: "success",
-                title: "Correct!",
-                text: "Excellent!",
-                timer: 1200,
-                showConfirmButton: false
-            });
-        } else {
-            //  Sweet Alert used
-            Swal.fire({
-                icon: "error",
-                title: "Incorrect!",
-                text: `Correct answer: ${Object.values(currentQuestion)[currentQuestion.answer]}`,
-                timer: 1800,
-                showConfirmButton: false
-            });
-		}
-		selectedChoice.parentElement.classList.add(classToApply)
-		setTimeout(() => {
-			selectedChoice.parentElement.classList.remove(classToApply)
-			           getNewQuestion()
-        }, 1000)
-    })
-})
+// ── Score ───────────────────────────────────────────────────────
+function incrementScore(points) {
+  score += points;
+  scoreText.innerText = Math.round(score);
 
-incrementScore = number  => {
-	score +=number
- scoreText.innerText = score
+  // bump animation
+  scoreText.classList.remove('bump');
+  scoreText.offsetHeight;
+  scoreText.classList.add('bump');
 }
 
-StartGame()
+// ── Tooltip on hover ───────────────────────────────────────────
+const tooltip = document.getElementById('tooltip');
 
+choiceCards.forEach(card => {
+  card.addEventListener('mouseenter', e => {
+    const textEl = card.querySelector('.ChoiceText');
+    if (textEl && textEl.dataset.tooltip) {
+      tooltip.innerHTML = textEl.dataset.tooltip;
+      tooltip.style.display = 'block';
+    }
+  });
+  card.addEventListener('mousemove', e => {
+    tooltip.style.left = e.pageX + 12 + 'px';
+    tooltip.style.top = e.pageY - 30 + 'px';
+  });
+  card.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ── Go ─────────────────────────────────────────────────────────
+startGame();

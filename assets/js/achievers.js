@@ -1,12 +1,20 @@
-const scoresList = document.querySelector('#scoresList') 
-const highScores = JSON.parse(localStorage.getItem("highScores")) || []
-scoresList.innerHTML = highScores.map(score => {
+const scoresList = document.querySelector('#scoresList');
+const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+if (highScores.length === 0) {
+  scoresList.innerHTML = `
+    <li class="leaderboard-empty">
+      No scores yet — be the first to play!
+    </li>`;
+} else {
+  scoresList.innerHTML = highScores.map((entry, index) => {
+    const medals = ['🥇', '🥈', '🥉'];
+    const rankDisplay = medals[index] || (index + 1);
     return `
-        <div class="card shadow-sm mb-3">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">${score.name}</h5>
-                <span class="display-6 fw-bold text-primary">${score.score}</span>
-            </div>
-        </div>
-    `;
-}).join("");
+      <li class="leaderboard-entry" style="animation-delay: ${index * 0.1}s">
+        <span class="leaderboard-rank">${rankDisplay}</span>
+        <span class="leaderboard-name">${entry.name}</span>
+        <span class="leaderboard-score">${entry.score}</span>
+      </li>`;
+  }).join('');
+}

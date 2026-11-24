@@ -1,50 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="dark">
 <head>
-	<title>play</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play — Quiz</title>
+  <!-- Bootstrap CSS first -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!-- Custom High-Contrast Stylesheets loaded after -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <section id="about" class="about section light-background">
-	
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <span class="description-title">About</span>
-        <h2><p id='progressText'>Question</p></h2>
-		<div id="progressBar">
-			<div id="progressBarFull"></div>
-		</div>
-		<div class="textscore">
-			<p >Score</p>
-			<h2 id='scorenumber'>0</h2>
-		</div>
-        <div><h3 id='QuestionText'>What is the Question?</h3></div>
-		<div id="tooltip"></div>
+  <!-- Animated background particles -->
+  <div class="particles" id="particles"></div>
+
+  <section class="quiz-page">
+    <div class="quiz-container">
+
+      <!-- Header: progress label + score -->
+      <div class="quiz-header">
+        <span class="quiz-progress-label" id="progressText">Question 1 of 10</span>
+        <div class="quiz-score-display">
+          <span class="score-icon">⭐</span>
+          <span>Score:</span>
+          <span class="quiz-score-number" id="scorenumber">0</span>
+        </div>
       </div>
-	  <!-- End Section Title -->
-		<div class="questions align-items-center text-center">
-			<div class="choices">
-				<div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Click to answer this question." data-number="1">num1</p></li>
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Think carefully before choosing." data-number="2" >num2</p></li>
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Only one answer is correct." data-number="3">num3</p></li>
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Click to answer this question." data-number="4">num4</p></li>
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Only one answer is correct." data-number="5">num5</p></li>
-					<li class="list-group-item"><p class='ChoiceText' data-tooltip="Think carefully before choosing."data-number="6">num6</p></li>
-				</ul>
-				</div>
-			</div>
-		</div>
-	</div>	
-</div>
-</section>
-<script type="text/javascript" src="assets/js/play.js"></script>
-<script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <!-- Progress bar -->
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-bar-fill" id="progressBarFull"></div>
+      </div>
+
+      <!-- Question -->
+      <div class="quiz-question-card">
+        <span class="quiz-question-tag">Question</span>
+        <h3 id="QuestionText">Loading question...</h3>
+      </div>
+
+      <!-- Choices -->
+      <div class="quiz-choices" id="choicesGrid">
+        <div class="quiz-choice" data-number="1">
+          <span class="choice-letter">A</span>
+          <span class="ChoiceText" data-number="1">—</span>
+        </div>
+        <div class="quiz-choice" data-number="2">
+          <span class="choice-letter">B</span>
+          <span class="ChoiceText" data-number="2">—</span>
+        </div>
+        <div class="quiz-choice" data-number="3">
+          <span class="choice-letter">C</span>
+          <span class="ChoiceText" data-number="3">—</span>
+        </div>
+        <div class="quiz-choice" data-number="4">
+          <span class="choice-letter">D</span>
+          <span class="ChoiceText" data-number="4">—</span>
+        </div>
+        <div class="quiz-choice" data-number="5">
+          <span class="choice-letter">E</span>
+          <span class="ChoiceText" data-number="5">—</span>
+        </div>
+        <div class="quiz-choice" data-number="6">
+          <span class="choice-letter">F</span>
+          <span class="ChoiceText" data-number="6">—</span>
+        </div>
+      </div>
+
+      <div id="tooltip"></div>
+    </div>
+  </section>
+
+  <script src="assets/js/play.js"></script>
+  <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // Particles
+    (function() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 20; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.top = Math.random() * 100 + '%';
+        dot.style.setProperty('--duration', (3 + Math.random() * 4) + 's');
+        dot.style.setProperty('--delay', (Math.random() * 5) + 's');
+        container.appendChild(dot);
+      }
+    })();
+  </script>
 </body>
 </html>

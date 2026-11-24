@@ -1,31 +1,77 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
 <head>
-    
-    <title>score</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Score — Quiz</title>
+  <!-- Bootstrap CSS first -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <!-- Custom High-Contrast Stylesheets loaded after -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div>
-            <h1>The test has ended</h1>
-            <h5>Your result is:  <span class="badge text-bg-secondary" id="finalScore">0</span></h5>
-            <form>
-                <h2 id="end-text">Let's save your results</h2>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Enter your name:</label>
-                    <input class="form-control" type="text" name="name" id="username" placeholder="Enter your name">
-                </div>
-                <div class="mb-3">
-                    <button class="btn btn-primary" id="scoreBtn" type="submit" onclick="saveHighScore(event)" disabled>Save</button>
-                </div>
-            </form>
-            <br/>
-            <a href="play.html" class="btn">Play Again</a>
-            <a href="index.html" class="btn">Go Home</a>
+  <!-- Animated background particles -->
+  <div class="particles" id="particles"></div>
+
+  <section class="score-page">
+    <div class="score-container">
+      <div class="glass-card score-card">
+
+        <div class="score-emoji">🎉</div>
+        <h1 class="score-title">Quiz Complete!</h1>
+        <p class="score-subtitle">Here's how you did</p>
+
+        <div class="score-value" id="finalScore">0</div>
+
+        <form class="score-form" onsubmit="return false;">
+          <h5 style="color: var(--text-primary); margin-bottom: 16px; font-weight: 700;">Save your result</h5>
+          <input
+            class="score-input"
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+            autocomplete="off"
+          >
+          <button
+            class="btn-quiz btn-primary-quiz"
+            id="scoreBtn"
+            style="width:100%;"
+            onclick="saveHighScore(event)"
+            disabled
+          >
+            Save Score
+          </button>
+        </form>
+
+        <div class="score-actions">
+          <a href="play.html" class="btn-quiz btn-secondary-quiz">
+            ↻ Play Again
+          </a>
+          <a href="index.html" class="btn-quiz btn-outline-quiz">
+            ← Home
+          </a>
         </div>
+
+      </div>
     </div>
-    <script src="assets/js/score.js"></script>
-    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+  </section>
+
+  <script src="assets/js/score.js"></script>
+  <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+  <script>
+    // Particles
+    (function() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 20; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.top = Math.random() * 100 + '%';
+        dot.style.setProperty('--duration', (3 + Math.random() * 4) + 's');
+        dot.style.setProperty('--delay', (Math.random() * 5) + 's');
+        container.appendChild(dot);
+      }
+    })();
+  </script>
 </body>
 </html>
